@@ -31,9 +31,8 @@ The Connected App is a simple Connected App (Salesforce → Setup → Apps → n
 * Callback URL is [_https://login.salesforce.com_](https://login.salesforce.com/)
 
 ![Image](./images/image_4.png)
+
 **oAuth sequence and configuration in Client**
-
-
 The lambda function will use an oAuth 2.0 Web Server flow to retrieve a token and will use the refresh token to maintain a valid access token.
 
 The configuration is performed in two steps
@@ -51,7 +50,9 @@ Use Terminal to execute the following commands. [your_client_id] is called “Co
 
 * **Request the authorization code using cURL**
 
+```
 curl -X POST -H 'Content-Type: application/x-www-form-urlencoded' -d "response_type=code&client_id=**[your_client_id]**&redirect_uri=**[your_redirect_url]**" "https://login.salesforce.com/services/oauth2/authorize" -v* *
+```
 
 **Issued response:**
 
@@ -70,12 +71,15 @@ Trying 136.147.43.172…
 
 ![Image](./images/image_5.png)
 * **The ‘code’ at the end of the url will now be used**
-* **POST with 'code' to retrieve access_token and refresh_token **
+* **POST with 'code' to retrieve access_token and refresh_token**
 
+```
 curl -X POST -H 'Content-Type: application/x-www-form-urlencoded' -d "grant_type=authorization_code&client_id=3MVG9g9rbsTkKnAVW9abdhxa6TlhTUEKDQNrGqpyPu4gvBRCaOeaHYAmyZM8cAtGS5.lVhfpeikoIpXtzVMWw&client_secret=2750853922881756995&code=aPrxbOND3gL_2LZSI8tsDikv9mz7zf5aXLgeV6syCcBNfZ_.plSbe_8FwtlRdcUCYsYURcZeaA%3D%3D&redirect_uri=https://login.salesforce.com" https://login.salesforce.com/services/oauth2/token
+```
 
 **Issued response:**
 
+```
 { "access_token": **[your_access_token]**,
 "refresh_token": **[your_refresh_token]**,
 "scope": "refresh_token full",
@@ -84,6 +88,7 @@ curl -X POST -H 'Content-Type: application/x-www-form-urlencoded' -d "grant_type
 "id": **[your_id],**
 "token_type": "Bearer",
 "issued_at": "1487839634788"}
+```
 
 **3. Configure Lambda Function**
 
@@ -104,6 +109,7 @@ Some things to Note:
 * To deploy this onto AWS Lambda, zip the full directory (including all node_modules) so AWS can satisfy the dependencies. Upload the zip file in AWS.
 * zip -r maytronics.zip *
 
+```
 var jsforce = require('jsforce');
 var conn = new jsforce.Connection({
   oauth2 : {
@@ -133,6 +139,7 @@ exports.handler = function(event, context) {
       console.log('SUCCESS' + JSON.stringify(rets));
     });
 };
+```
 
 Configure the lambda function with the required auth values
 
@@ -165,11 +172,13 @@ Make sure to specify an ID for an asset that can be found in Salesforce. If unsu
 
 https://myiot.lightning.force.com/one/one.app#/sObject/**02i0O00000TZ5T3QAL**/view
 
+```
 {
   "cleaningCycle": 1,
   "ID": "**02i0O00000TZ5T3QAL**",
   "state": "cleaning"
 }
+```
 
 Publish the event to the topic in AWS IoT Hub and watch the orchestration in Salesforce IoT Explorer trigger state changes.
 
