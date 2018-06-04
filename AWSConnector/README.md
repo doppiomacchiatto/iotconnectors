@@ -12,7 +12,10 @@ The end-to-end connection described in this document expects that the following 
 
 Here are the examples I created for the purpose of this document.
 
-[Image: ./images/image_1.png][Image: ./images/image_2.png][Image: ./images/image_3.png]
+![Image](./images/image_1.png)
+![Image](./images/image_2.png)
+![Image](./images/image_3.png)
+
 **1. Create Connected Application **
 
 
@@ -27,7 +30,7 @@ The Connected App is a simple Connected App (Salesforce → Setup → Apps → n
 * Perform requests on your behalf at any time (refresh_token, offline_access)
 * Callback URL is [_https://login.salesforce.com_](https://login.salesforce.com/)
 
-[Image: ./images/image_4.png]
+![Image](./images/image_4.png)
 **oAuth sequence and configuration in Client**
 
 
@@ -65,7 +68,7 @@ Trying 136.147.43.172…
 * **Click ‘Allow’ in the following Access screen**
 * **On next screen Copy the Url from the address bar**
 
-[Image: ./images/image_5.png]
+![Image](./images/image_5.png)
 * **The ‘code’ at the end of the url will now be used**
 * **POST with 'code' to retrieve access_token and refresh_token **
 
@@ -133,26 +136,26 @@ exports.handler = function(event, context) {
 
 Configure the lambda function with the required auth values
 
-[Image: ./images/image_6.png]
+![Image](./images/image_6.png)
 Test the function with a test event
 
-[Image: ./images/image_7.png]
+![Image](./images/image_7.png)
 The log output should finally show that the event was successfully sent to Salesforce
 
-[Image: ./images/image_8.png]
+![Image](./images/image_8.png)
 
 **4. Create a device in AWS IoT Hub**
 
 
 In AWS IoT Hub, create a simple device and make note of the topic name encoded in the Thing ARN (here thing/MaytronicsDolphin)
 
-[Image: ./images/image_9.png]
+![Image](./images/image_9.png)
 Create an action in AWS IoT Hub to invoke the Lambda function
 
 
 Define an action in AWS IoT Hub to call the Lambda function for any event that is available for your thing. The topic name should be as before: thing/MaytronicsDolphin
 
-[Image: ./images/image_10.png]
+![Image](./images/image_10.png)
 5. Test the end-to-end scenario
 
 
@@ -170,4 +173,5 @@ https://myiot.lightning.force.com/one/one.app#/sObject/**02i0O00000TZ5T3QAL**/vi
 
 Publish the event to the topic in AWS IoT Hub and watch the orchestration in Salesforce IoT Explorer trigger state changes.
 
-[Image: ./images/image_11.png][Image: ./images/image_12.png]
+![Image](./images/image_11.png)
+![Image](./images/image_12.png)
