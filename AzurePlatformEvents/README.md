@@ -20,9 +20,11 @@ There is coding required in the Azure Portal part of the guide.  To avoid learni
 
 The architecture of the demo application is as follows.  On the Azure IoT side we will configure an **IoT Hub** which will be the gateway for the device  communication.  This is where we will create the Hub into which our IoT Device - a drinks machine will register and send events into.
 
-We will also utilise an **Azure Serverless Function App **which is nothing more than a listener for the IoT  Hub so that as messages are received from the device, they will pass into the Azure Serverless App which will process the message.  Basically, within my Serverless App Function (written in Node.js) we can create  the Platform Event defined in our Salesforce Org and send the device information in JSON format to the Salesforce Platform.
+We will also utilise an **Azure Serverless Function App** which is nothing more than a listener for the IoT  Hub so that as messages are received from the device, they will pass into the Azure Serverless App which will process the message.  Basically, within my Serverless App Function (written in Node.js) we can create  the Platform Event defined in our Salesforce Org and send the device information in JSON format to the Salesforce Platform.
 
 Within my Org I have trivial orchestration which processes the Platform Event sent via Azure IoT  and hey presto we have a live and real integration between the Device world and Customer world where Salesforce excels.
+
+![Image](./images/image_1.png)
 
 ## Disclaimer
 
@@ -42,7 +44,7 @@ For those interested please see the Microsoft Azure IoT Reference Architecture G
 
 # Create your Platform Event in Salesforce
 
-The first step on our journey is to create our Platform Events, which is the primary method for integration between Microsoft and Salesforce.  For the purposes of our demo app, I have created a Platform Event in my Org to simulate a very basic **Drinks Machine.  **The key elements I am capturing are ;
+The first step on our journey is to create our Platform Events, which is the primary method for integration between Microsoft and Salesforce.  For the purposes of our demo app, I have created a Platform Event in my Org to simulate a very basic **Drinks Machine.** The key elements I am capturing are ;
 
 
 * Serial Number
@@ -52,7 +54,9 @@ The first step on our journey is to create our Platform Events, which is the pri
 
 Please replicate the above in your org or re-use any Platform Events you already have.  If you have completed your Trailhead IoT Trails then you could re-use your Fridge example.
 
-Using Workbench (http://bit.ly/2DRgAOv) and the REST Explorer endpoint **/services/data/v41.0/sobjects/DrinksMachine__e **I am able post data into my Platform Event.  Once  successful,  we have the JSON payload required by Salesforce and the definition of what Azure needs to send via our Serverless Function App integration (more about this later!).
+![Image](./images/image_2.png)
+
+Using Workbench (http://bit.ly/2DRgAOv) and the REST Explorer endpoint **/services/data/v41.0/sobjects/DrinksMachine__e** I am able post data into my Platform Event.  Once  successful,  we have the JSON payload required by Salesforce and the definition of what Azure needs to send via our Serverless Function App integration (more about this later!).
 
 `{`
 `   "SerialNumber__c" : "SKP12345",`
@@ -62,27 +66,30 @@ Using Workbench (http://bit.ly/2DRgAOv) and the REST Explorer endpoint **/servic
 `}`
 
 
+![Image](./images/image_3.png)
 
 # Create a Connected App in your Salesforce Org
 
-Create a new Connected App in your Salesforce Org and make a note of the **CONSUMER KEY** and **SECRET.  **Follow the following Trailhead which steps you through the process (http://sforce.co/2Eh8fSg).
+Create a new Connected App in your Salesforce Org and make a note of the **CONSUMER KEY** and **SECRET.** Follow the following Trailhead which steps you through the process (http://sforce.co/2Eh8fSg).
 
 **Connected Apps** are external applications/api's that can **connect** to S**alesforce Platform** over Identity and Data APIs. **Connected Apps** use the standard OAuth 2.0 protocol to authenticate, provide Single Sign-On, and acquire access tokens for use with Salesforce APIs.  This is the standard mechanism for connecting api based applications in the Salesforce Platform and necessary when we configure the Azure Serverless Function in Node.js (more on this later).
 
 Here is an example what this looks like in my Org.
 
-
+![Image](./images/image_4.png)
 
 # Create your IoT Explorer Orchestration
 
 Create a basic IoT Explorer Orchestration so you can test your Integration.  Follow the Trailhead (http://sforce.co/2rQI3eH)  if you haven't built an Orchestration before or need a refresher.  Here is my example Orchestration for reference and ensure that you test this with Workbench to make sure your Platform Events trigger the Orchestration.
 
-
+![Image](./images/image_5.png)
 
 # Create your Microsoft Azure Portal Account
 
 Now onto the fun stuff.  You will need to sign up to the Microsoft Azure Portal at [https://portal.azure.com](https://portal.azure.com/) .  If this is your first time then you will receive some complementary credits, but as part of the sign up you will need to provide your credit card details.  Please check with your management regarding reimbursement.   I selected the “**pay-as-you-go-plan**” for my local Azure Service in my region.
 
+
+![Image](./images/image_6.png)
 
 
 
@@ -99,21 +106,27 @@ Within the Azure Portal Interface we will configure 3 components;
 
 The first step is to create the IoT Hub.  This is the Device hub via which all registered devices will communicate with the  underlying Azure infrastructure.  It is where you can register, secure, authorise and serve all devices.  Click on **New** → **Internet of Things** → **IoT Hub**
 
+![Image](./images/image_7.png)
 
-You will be presented with the configurator.   Give your IoT hub a sensible name such as **Salesforce-IoTHub (**all hub names need to be unique across Azure).  Then select the pricing.  Make sure you select the **Free tier **-** **the default is set to a chargeable “**S1 - Standard**” pricing tier so make sure you select the free option (if available).
+You will be presented with the configurator.   Give your IoT hub a sensible name such as **Salesforce-IoTHub (**all hub names need to be unique across Azure).  Then select the pricing.  Make sure you select the **Free tier**- the default is set to a chargeable “**S1 - Standard**” pricing tier so make sure you select the free option (if available).
 
-Ensure that you minimise your configurations to avoid additional charges.  Select **2 **in the device-to-cloud section and make sure you select your subscription that you selected on sign-up.
+Ensure that you minimise your configurations to avoid additional charges.  Select **2** in the device-to-cloud section and make sure you select your subscription that you selected on sign-up.
 
-You will need to assign the IoT Hub to a Resource Group.  A Resource Group is nothing more than a collections of services that you can apply joint security access, permissions and policies against for management and administration purposes.  Create a new group such as **Salesforce_Resource_Group **where we can add all of our components into a common policy container such as our IoT Hub and Serverless Function App.
+You will need to assign the IoT Hub to a Resource Group.  A Resource Group is nothing more than a collections of services that you can apply joint security access, permissions and policies against for management and administration purposes.  Create a new group such as **Salesforce_Resource_Group** where we can add all of our components into a common policy container such as our IoT Hub and Serverless Function App.
 
-Additionally, select the **Pin to dashboard **option so you have a bookmark into your IoT Hub on the **Dashboard **page of the Portal.  Click **Create **and wait - be patient as it can take a few minutes for the services to spin up.  After a few minutes you will see your IoT Hub and all it's config details.
+![Image](./images/image_8.png)
 
-Now we are ready to add a Device registration to our IoT Hub. Click on **IoT Devices **section.
+Additionally, select the **Pin to dashboard** option so you have a bookmark into your IoT Hub on the **Dashboard** page of the Portal.  Click **Create** and wait - be patient as it can take a few minutes for the services to spin up.  After a few minutes you will see your IoT Hub and all it's config details.
 
+Now we are ready to add a Device registration to our IoT Hub. Click on **IoT Devices** section.
+
+![Image](./images/image_9.png)
 
 ## Register a Device to your IoT Hub
 
 Once we have our IoT Hub defined we are ready to register our first Device.  Please note, in this guide we do nothing with the device we register. For now it is a placeholder for a future guide where we simulate real time streaming data.  However, this is good practice to familiarise yourself with the process.
+
+![Image](./images/image_10.png)
 
 Click **Add** and start to configure your device details.  For the purposes of my Drinks Machine I am configuring the following
 
@@ -125,10 +138,11 @@ Click **Add** and start to configure your device details.  For the purposes of m
 
 Click **Save** and wait until the Device is registered and you can see it listed in the IoT Hub.
 
-
+![Image](./images/image_11.png)
 
 Once created you have all the security and metadata required to control and receive events from the device as we will see in Part 2 of this guide.  Once you have finished you should have a screen which has your demo device registered within the IoT Hub.  Its important to keep the credential details secure as this controls the device authentication and communication in real time (and the charges you can incur when streaming - hence I have obfuscated those details).
 
+![Image](./images/image_12.png)
 
 Now we are ready to create our Serverless Function App and start coding our Platform Events and Integrate with Salesforce IoT Explorer.
 
@@ -137,38 +151,44 @@ Now we are ready to create our Serverless Function App and start coding our Plat
 
 The Function App is the processor for our device events and responsible for generating Platform Events.  When you create a Function App, it runs in a container/server that Azure provisions on demand at runtime (which we don't need to create, hence the Serverless name).  However, it is still a container which we need to configure what Node packages we want to include as part of our function operation.  Therefore there are a few config steps.   Click on **New** → **Function App**
 
+![Image](./images/image_13.png)
 
 
+Now configure the core settings.  **App name** needs to be unique across Azure because it creates a domain registration for the endpoint.  Ensure you select your default subscription and make sure your **Hosting Plan** is set to **Consumption Plan** (this enables charging on demand as opposed to fixed billing).  Pick your location and storage options.  Function Apps require storage for files and data.  I am creating a new storage for my Function App.  Make sure you pin the Function App to your dashboard so that it is easily accessible when it completes.
 
-Now configure the core settings.  **App name** needs to be unique across Azure because it creates a domain registration for the endpoint.  Ensure you select your default subscription and make sure your **Hosting Plan **is set to **Consumption Plan **(this enables charging on demand as opposed to fixed billing).  Pick your location and storage options.  Function Apps require storage for files and data.  I am creating a new storage for my Function App.  Make sure you pin the Function App to your dashboard so that it is easily accessible when it completes.
-
-
-
-
+![Image](./images/image_14.png)
 
 When you are ready click **Create** and wait.  When this operation completes navigate to your newly created SalesforceAzure1 (or equivalent) FunctionApp.
 
 ## Configure Function App
 
-Click on the newly created Function App and see it's status.  If it is running, click on the **Platform features link **in the top menu and launch the features panel, which enables  access to key server services such as networking, DNS, SSL and other services.
+Click on the newly created Function App and see it's status.  If it is running, click on the **Platform features link** in the top menu and launch the features panel, which enables  access to key server services such as networking, DNS, SSL and other services.
+
+![Image](./images/image_15.png)
+
 The only service we need to configure are in the Advanced tools (known as Kudu) which will launch the browser based command line.
 
-The command line can be found in the **Debug console, **select the CMD shell.
+![Image](./images/image_16.png)
 
+The command line can be found in the **Debug console,** select the CMD shell.
 
+![Image](./images/image_17.png)
 
 This will launch the combined file system and command line view where we can configure the Function App configuration.  We can now Install everything we need and prepare our Node.js environment.
 
+![Image](./images/image_18.png)
+
 ## Create Package.json file and install Node.js Modules
 
-Within the Kudu console create a package.json file.  This is just package configuration file that describes the Node application that we will create to send Platform Events.  Within the console winow type the following.
+Within the Kudu console create a package.json file.  This is just package configuration file that describes the Node application that we will create to send Platform Events.  Within the console window type the following.
 
 `D:\home>``touch packa`g`e.json`
 
 This will create an empty file that will be used by the Node Package Manager when we configure the Node application in the next few steps.  You should now see the package.json file listed in the file system.
 
+![Image](./images/image_19.png)
 
-Click on the edit icon on the **package.json **file and add the following snippet to the file and Save
+Click on the edit icon on the **package.json** file and add the following snippet to the file and Save
 
 ```
 {
@@ -182,30 +202,41 @@ Click on the edit icon on the **package.json **file and add the following snippe
 }
 ```
 
+![Image](./images/image_20.png)
+
 Now return to the command line and enter the following line.
 
 `D:\home>npm install --save`
 
-This will install all the packages that were defined in the package.json file that we created previously.  The main package is called **nforce.  **Nforce is a Node package that enables javascript access to Salesforce, including authentication using a connected app that was created earlier.  More information on nforce can be found here http://bit.ly/2DIEIUb . This command will locally install all the required modules for the Function App as can be seen in the screenshot below.
+This will install all the packages that were defined in the package.json file that we created previously.  The main package is called **nforce.** Nforce is a Node package that enables javascript access to Salesforce, including authentication using a connected app that was created earlier.  More information on nforce can be found here http://bit.ly/2DIEIUb . This command will locally install all the required modules for the Function App as can be seen in the screenshot below.
 
+![Image](./images/image_21.png)
 
 ## Create a New function within your Serverless Environment
 
 We have now configured our virtual server for Node.js. We can now create our function and link it to our **IoT Hub **messages that will be received from the device**.  **Go back to the **SalesforceAzure1** Function App and create a new function.** **
 
+![Image](./images/image_22.png)
+
 This user Interface is slightly confusing.  Do not pick the defaults and instead pick the **create your own custom functions.  **This will launch a list of quickstart templates.  Pick the **Event Hub Trigger** - Javascript template.
+
+![Image](./images/image_23.png)
 
 A Function App is triggered when an Event Hub is triggered.  The next screen is where we tie together our IoT Hub Events to the Handling FunctionApp code.
 
+![Image](./images/image_24.png)
 
 By default your IoT Hub that you created earlier should display in the dropdown list.  Select the **IoTHub** you created earlier and use the built-in endpoints which should be the default settings.
 
+![Image](./images/image_25.png)
 
 You should see the default javascript function stub code which we will modify.
 
+![Image](./images/image_26.png)
+
 ## **Create Azure Platform Event from the Serverless Function**
 
-We have now bootstrapped our FunctionApp and bound it to our Azure IoT Hub.  Now we need to create Platform Events from the payload we will receive from the device and test using the inbuilt FunctionApp tester.  Copy the code below in the code window above and click **Save.  **Make sure to fill in details such as Org Details, User Id, Passwords and Connected App details.
+We have now bootstrapped our FunctionApp and bound it to our Azure IoT Hub.  Now we need to create Platform Events from the payload we will receive from the device and test using the inbuilt FunctionApp tester.  Copy the code below in the code window above and click **Save.** Make sure to fill in details such as Org Details, User Id, Passwords and Connected App details.
 
 All this code does is authenticate against your Org using your OAuth details and the Connected App setting you provide and create a Platform Event using the nforce and the eventHubMessages that we have encoded into JSON.
 
@@ -262,12 +293,14 @@ module.exports = function (context, eventHubMessages) {
 
 ## Test your FunctionApp and Build connect it to Salesforce IoT Explorer
 
-In the right hand side bar of the Portal click on the **Test **link to open the Azure FunctionApp Tester.  Enter an example payload in JSON format and hit **Run.  **The payload could be the  same as you tested your Platform Events in Workbench.  Copy and paste the payload and watch the log window.  It may take a few seconds to compile and run the function.
+In the right hand side bar of the Portal click on the **Test** link to open the Azure FunctionApp Tester.  Enter an example payload in JSON format and hit **Run.** The payload could be the  same as you tested your Platform Events in Workbench.  Copy and paste the payload and watch the log window.  It may take a few seconds to compile and run the function.
 
+![Image](./images/image_27.png)
 
 If see the following entries in your Log files then **congratulations**!  you have successfully integrated Azure IoT to Salesforce IoT Explorer via Platform Events.
 Your Orchestration that you created in IoT Explorer should now be active and receiving events from Azure IoT.
 
+![Image](./images/image_28.png)
 
 # Recap and Summary
 
