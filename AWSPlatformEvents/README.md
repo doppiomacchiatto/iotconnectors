@@ -248,12 +248,12 @@ Your new function is now created. The screen should look like this
 
 ![Image](./images/image_8.png)
 
-    * **consumerKey** = The consumer key from the Connected App  created at Stage 2
-    * **awsApiUser** = The salesforce user name that AWS will impersonate ( e.g **awsapiuser@gadgets.com**
-    * **instanceUrl** = You can get this from the browser URL when connected to your org (e.g.  [https://eu12.salesforce.com](https://eu12.salesforce.com/))
-    * **platformEventAPIName** = Robot_State__e (this Platform Event must exist in your org)
-    * **isSandbox** = false (set to **false** for Developer Edition or Production orgs)
-    * **privateKey** = Enter the contents of the Private key created in stage one, **EXCEPT THE 1ST AND LAST LINES!**
+  * **consumerKey** = The consumer key from the Connected App  created at Stage 2
+  * **awsApiUser** = The salesforce user name that AWS will impersonate ( e.g **awsapiuser@gadgets.com**
+  * **instanceUrl** = You can get this from the browser URL when connected to your org (e.g. [https://eu12.salesforce.com](https://eu12.salesforce.com/))
+  * **platformEventAPIName** = Robot_State__e (this Platform Event must exist in your org)
+  * **isSandbox** = false (set to **false** for Developer Edition or Production orgs)
+  * **privateKey** = Enter the contents of the Private key created in stage one, **EXCEPT THE 1ST AND LAST LINES!**
 
 
 * Create a Test Event for your Lambda Function
