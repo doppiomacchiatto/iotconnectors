@@ -24,9 +24,8 @@ JSON Web Token (JWT) is a JSON-based security token encoding mechanism that enab
 A simple way to create a private key and matching SSL certificate is to open a Terminal session (Mac/Unix) and run the following command
 
 ```
-`openssl req -nodes -new -x509 -keyout private.pem -out server.cert`
+openssl req -nodes -new -x509 -keyout private.pem -out server.cert
 ```
-
 
 You will be prompted to enter the following info
 
