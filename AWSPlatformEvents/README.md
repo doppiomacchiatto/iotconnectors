@@ -150,14 +150,14 @@ Complete the following steps
 
 * Create a new folder (name it **myfunction**)
 * Open a Terminal and navigate to this folder
-    * Run the following command
+  * Run the following command
 
 ```
 npm init
 ```
 
-    * Accept all default entries by hitting **<ENTER>**
-    * At this point you should have a **package.json** file under your** **myfunction** folder
+  * Accept all default entries by hitting **<ENTER>**
+  * At this point you should have a **package.json** file under your** **myfunction** folder
 * Install the following  npm packages
 
 ```
