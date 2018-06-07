@@ -3,7 +3,7 @@
 This repository contains examples of integrating various IoT clouds with Salesforce IoT:
 
 * [AWS Connector](./AWSConnector) Shows an example of connecting AWS back to Salesforce IoT
-* [AWS Lambda Public Events](./AWSPublicEvents) Shows an example of a Lambda function creating Public events
+* [AWS Lambda and Salesforce Platform Events](./AWSPublicEvents) Shows an example of an AWS Lambda function creating Platform Events
 * [Azure Connector](./AzureConnector) Shows an example of connecting Azure back to Salesforce IoT
 * [Google Connector](./Google-PE) Shows an example of creating public events on Google
 
