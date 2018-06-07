@@ -156,9 +156,9 @@ Complete the following steps
 npm init
 ```
 
-  * Accept all default entries by hitting **<ENTER>**
-  * At this point you should have a **package.json** file under your** **myfunction** folder
-* Install the following  npm packages
+  * Accept all default entries by hitting **ENTER**
+  * At this point you should have a **package.json** file under your **myfunction** folder
+* Install the following npm packages
 
 ```
 npm i new-salesforce-jwt --save
