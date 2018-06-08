@@ -184,7 +184,7 @@ function reBuildPrivateKey() {
   return( beginPk + process.env.privateKey.split(' ').concat().join('\n') + endPk);
 }
 
-exports.**handler** = function (event, context, callback) {
+exports.handler = function (event, context, callback) {
   var consumerKey = process.env.consumerKey; // This is the connected app consumerKey
   var awsApiUser = process.env.awsApiUser; // This is the api user used by aws to connect to sfdc
   var privateKey = reBuildPrivateKey(); //This is the private Key linked to the public SSL cert
