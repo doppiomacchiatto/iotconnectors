@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OrchestrationContext xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <events>
+        <eventType>PlatformEvent</eventType>
+        <orchestrationEvent xsi:nil="true"/>
+        <platformEvent>Smart_Thermostat_Reading__e</platformEvent>
+        <platformEventPrimaryKey>DeviceId__c</platformEventPrimaryKey>
+    </events>
+    <masterLabel>Smart Thermostat Reading</masterLabel>
+    <runtimeType>Standard</runtimeType>
+</OrchestrationContext>

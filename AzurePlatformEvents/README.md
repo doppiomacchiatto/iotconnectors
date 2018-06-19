@@ -298,9 +298,12 @@ In the right hand side bar of the Portal click on the **Test** link to open the 
 ![Image](./images/image_27.png)
 
 If see the following entries in your Log files then **congratulations**!  you have successfully integrated Azure IoT to Salesforce IoT Explorer via Platform Events.
-Your Orchestration that you created in IoT Explorer should now be active and receiving events from Azure IoT.
 
 ![Image](./images/image_28.png)
+
+Your Orchestration that you created in IoT Explorer should now be active and receiving events from Azure IoT.
+
+![Image](./images/image_29.png)
 
 # Recap and Summary
 

@@ -1,0 +1,15 @@
+{
+  "name": "iotexample",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jsforce": "^1.8.4",
+    "new-salesforce-jwt": "^0.1.4"
+  }
+}
