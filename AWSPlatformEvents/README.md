@@ -24,9 +24,8 @@ JSON Web Token (JWT) is a JSON-based security token encoding mechanism that enab
 A simple way to create a private key and matching SSL certificate is to open a Terminal session (Mac/Unix) and run the following command
 
 ```
-`openssl req -nodes -new -x509 -keyout private.pem -out server.cert`
+openssl req -nodes -new -x509 -keyout private.pem -out server.cert
 ```
-
 
 You will be prompted to enter the following info
 
@@ -75,7 +74,7 @@ rZB19eL/ECbNOjVy+soiewuX9S0cz259GuTfBa8+Ii/QF0wfB8J42Q7tHUTq9z9B
 
 
 
-* **server.crt **(SSL Certificate) - This should look like this
+* **server.crt** (SSL Certificate) - This should look like this
 
 ```
 -----BEGIN CERTIFICATE-----
@@ -99,7 +98,7 @@ TLoOylYqv+nKIcJrVLk/2COspYDV2cFpZyX9yw==
 ```
 
 
-You will use the **private key **and **server certificate** in the next 2 stages
+You will use the **private key** and **server certificate** in the next 2 stages
 
 ![Image](./images/image_2.png)
 
@@ -107,7 +106,7 @@ You will use the **private key **and **server certificate** in the next 2 stages
 
 As a Salesforce Administrator to the org, complete the following tasks:
 
-1. Create a locked-down **“AWS Lambda Integration User”** Profile.
+1. Create a locked-down **AWS Lambda Integration User** Profile.
     1. This profile should only allow
         1. **Create** and **Read** permission to the relevant **Platform Event(s)**
         2. API Enabled = true
@@ -124,7 +123,7 @@ As a Salesforce Administrator to the org, complete the following tasks:
         1. Access and Manage your data (API)
         2. Perform Requests on your behalf at any time
     6. Require secret for Web Server Flow = Unchecked
-4. Make a note of the** Consumer Key **as you will need it in your AWS Lambda Function
+4. Make a note of the **Consumer Key** as you will need it in your AWS Lambda Function
 5. Go Back to App Manager and Choose **“Manage”**
 
 ![Image](./images/image_3.png)
@@ -140,7 +139,7 @@ As a Salesforce Administrator to the org, complete the following tasks:
 
 Finally, you will create a Lambda function that uses the private key (created in section 1) to publish a Platform Event into your salesforce org. The AWS Lambda function will impersonate the AWS api user (created in section 2)
 
-This stage consists of 2 sets of steps
+This stage consists of 2 sets of steps:
 
 * Create and package the function source code and
 * Create the AWS Lambda function
@@ -151,19 +150,19 @@ Complete the following steps
 
 * Create a new folder (name it **myfunction**)
 * Open a Terminal and navigate to this folder
-    * Run the following command
+  * Run the following command
 
 ```
 npm init
 ```
 
-    * Accept all default entries by hitting **<ENTER>**
-    * At this point you should have a **package.json **file under your** **myfunction**** folder
-* Install the following  npm packages
+  * Accept all default entries by hitting **ENTER**
+  * At this point you should have a **package.json** file under your **myfunction** folder
+* Install the following npm packages
 
 ```
-`npm i` ```new-salesforce-jwt --save
-`npm i` ```jsforce --save``
+npm i new-salesforce-jwt --save
+npm i jsforce --save
 ```
 
 * Create index.js (under your **myfunction** folder)
@@ -174,7 +173,7 @@ touch index.js
 
 * Edit index.js and paste the following Javascript code
 
-```
+```javascript
 'use strict'
 var jwtflow = require('new-salesforce-jwt');
 var jsforce = require('jsforce');
@@ -185,7 +184,7 @@ function reBuildPrivateKey() {
   return( beginPk + process.env.privateKey.split(' ').concat().join('\n') + endPk);
 }
 
-exports.**handler** = function (event, context, callback) {
+exports.handler = function (event, context, callback) {
   var consumerKey = process.env.consumerKey; // This is the connected app consumerKey
   var awsApiUser = process.env.awsApiUser; // This is the api user used by aws to connect to sfdc
   var privateKey = reBuildPrivateKey(); //This is the private Key linked to the public SSL cert
@@ -218,7 +217,6 @@ exports.**handler** = function (event, context, callback) {
 ```
 
 
-
 * Create **myfunction.zip**  - A zip file containing, at its root, the myFunction folder and all of its contents
 
 ![Image](./images/image_5.png)
@@ -249,12 +247,12 @@ Your new function is now created. The screen should look like this
 
 ![Image](./images/image_8.png)
 
-    * **consumerKey** = The consumer key from the Connected App  created at Stage 2
-    * **awsApiUser** = The salesforce user name that AWS will impersonate ( e.g **[awsapiuser@gadgets.com](mailto:awsapiuser@gadgets.com)) **
-    * **instanceUrl** = You can get this from the browser URL when connected to your org (e.g.  [https://eu12.salesforce.com](https://eu12.salesforce.com/))
-    * **platformEventAPIName** = Robot_State__e (this Platform Event must exist in your org)
-    * **isSandbox** = false (set to **false** for Developer Edition or Production orgs)
-    * **privateKey** = Enter the contents of the Private key created in stage one, **EXCEPT THE 1ST AND LAST LINES!**
+  * **consumerKey** = The consumer key from the Connected App  created at Stage 2
+  * **awsApiUser** = The salesforce user name that AWS will impersonate ( e.g **awsapiuser@gadgets.com**
+  * **instanceUrl** = You can get this from the browser URL when connected to your org (e.g. [https://eu12.salesforce.com](https://eu12.salesforce.com/))
+  * **platformEventAPIName** = Robot_State__e (this Platform Event must exist in your org)
+  * **isSandbox** = false (set to **false** for Developer Edition or Production orgs)
+  * **privateKey** = Enter the contents of the Private key created in stage one, **EXCEPT THE 1ST AND LAST LINES!**
 
 
 * Create a Test Event for your Lambda Function
@@ -262,8 +260,7 @@ Your new function is now created. The screen should look like this
 
 ![Image](./images/image_9.png)
 
-* Note the Test Event data fields must correspond to a Platform Event (in this case **“Robot_State__e”) previosuly defined on Salesforce **
-
+* Note the Test Event data fields must correspond to a Platform Event (in this case **Robot_State__e**) previosuly defined on Salesforce
 
 
 * Upload the Packaged Source code (Zip file)
