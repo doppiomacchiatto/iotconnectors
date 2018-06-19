@@ -12,11 +12,11 @@ git clone https://github.com/developerforce/iotconnectors.git
 
 Then go into the sfdx directory and run the bash script
 
-``
+`
 cd iotconnectors
 cd sfdx
 sh ./projectSetup.sh
-``
+`
 
 Follow the instructions in the script which will require answering some prompts.  At the end of the script you will have:
 
