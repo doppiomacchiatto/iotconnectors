@@ -6,11 +6,12 @@ let conn = new jsforce.Connection({
     // loginUrl : 'https://test.salesforce.com'
 });
 
-
+let fs = require('fs');
 
 let username = process.argv[2];
 let password = process.argv[3];
 let fullName = 'IOT_CONNECTOR'; // no spaces
+let cert = fs.readFileSync(process.argv[5],'utf8');
 
 function makeid() {
     var id = "";
@@ -34,6 +35,7 @@ conn.login(username, password, function (err, userInfo) {
         label: 'IOT Connector',
         oauthConfig: {
             callbackUrl: 'https://login.salesforce.com',
+            certificate: cert,
             consumerSecret: makeid(), // at least 8 characters
                                         // unique (and only alphanumeric)
                                         // random number should be ok
