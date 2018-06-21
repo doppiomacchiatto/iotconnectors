@@ -1,16 +1,12 @@
-=== Org Description
-KEY              VALUE
-───────────────  ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
-Access Token     00DR0000001nP1y!AQ4AQHcrAeP5TYaCRu5eHRK0azbzrzI8LjUT.hZzCI7X11_6FpcLOyLENwiUz90vy52Vd7WkKPrjkhIz1fj1bbkhK6d319KL
-Alias            iotconnector
-Client Id        SalesforceDevelopmentExperience
-Created By       jb@zthub.org
-Created Date     2018-06-20T22:48:08.000+0000
-Dev Hub Id       jb@zthub.org
-Edition          Developer
-Expiration Date  2018-06-27
-Id               00DR0000001nP1yMAE
-Instance Url     https://velocity-java-2444-dev-ed.cs2.my.salesforce.com
-Org Name         joshua.birk Company
-Status           Active
-Username         test-nhnxlv3c8akh@example.com
+=== User Description
+KEY           VALUE
+────────────  ────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+Access Token  00D3B0000004k8q!ARYAQI1vaxii7eJ83ckNX_zttHePlbzChbflXVuMbzXYj2jhuw.mJsebq1F6b2t48xidl5aN35j4I63oaQ0YFxKkgXVpQ3jX
+Alias         iotconnector
+Id            0053B000001iLOrQAM
+Instance Url  https://data-saas-5895-dev-ed.cs50.my.salesforce.com
+Login Url     https://CS50.salesforce.com
+Org Id        00D3B0000004k8qUAA
+Password      #W(3_uMm^]
+Profile Name  System Administrator
+Username      test-c7bslvdl1nln@example.com

@@ -11,23 +11,6 @@ var sandbox = (config.sandbox || process.env.isSandbox == 'true');  //Set to tru
 var instanceUrl = (config.instance_url || process.env.instanceUrl);
 var platformEventAPIName = (config.platform_event || process.env.platformEventAPIName); //Set to PE API name (e.g 'Robot_State__e')
 
-var sfConnection = null;
-
-//Get AccessToken using JWT OAuth2 flow
-jwtflow.getToken(consumerKey, privateKey, awsApiUser, sandbox, function(err, accessToken) {
-    if (err) {
-        console.log(err,null); // Error in JWT Flow
-    }
-    //With the OAuth access token, connect to Salesforce
-    if (accessToken)  {
-        var sfConnection = new jsforce.Connection();
-        sfConnection.initialize({
-        instanceUrl: instanceUrl,
-        accessToken: accessToken
-        });
-    }
-});
-    
 function reBuildPrivateKey() {
   var beginPk = "-----BEGIN PRIVATE KEY-----\n";
   var endPk   = "\n-----END PRIVATE KEY-----\n";
@@ -37,13 +20,35 @@ function reBuildPrivateKey() {
 
 //base PE creator
 function sendPlatformEvent(event, context, callback) {
-    if (sfConnection) {
-        //Publish a Platform Event
-        sfConnection.sobject(platformEventAPIName).create(event).then (
-            function (result) { callback(null,result);},
-            function (err) { callback(err,null);}
-        );
+    if(!callback) {callback = basicLog;}
+    console.log(event);
+    console.log("Is Sandbox? "+sandbox);
+
+
+    jwtflow.getToken(consumerKey, privateKey, apiUser, sandbox, function(err, accessToken) {
+        if (err) {
+            console.log(err,null); // Error in JWT Flow
         }
+        //With the OAuth access token, connect to Salesforce
+        if (accessToken)  {
+            var sfConnection = new jsforce.Connection();
+            sfConnection.initialize({
+                instanceUrl: instanceUrl,
+                accessToken: accessToken
+            });
+            if (sfConnection) {
+                //Publish a Platform Event
+                console.log("Sending Platform Event");
+                sfConnection.sobject(platformEventAPIName).create(event).then (
+                    function (result) { callback(null,result);},
+                    function (err) { callback(err,null);}
+                );
+                }       
+        }
+    });
+
+
+    
 }
 
 function basicLog(err,result) {

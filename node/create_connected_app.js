@@ -1,17 +1,23 @@
 //thanks wade
+/*
+cert = cert.replace("-----BEGIN CERTIFICATE-----\n","");
+cert = cert.replace("\n-----END CERTIFICATE-----\n","");
+cert = cert.replace("\n"," ");
+*/
 
 let jsforce = require('jsforce');
+
 let conn = new jsforce.Connection({
     // you can change loginUrl to connect to sandbox or prerelease env.
-    // loginUrl : 'https://test.salesforce.com'
+    loginUrl : 'https://'+process.argv[2]+'.salesforce.com'
 });
 
 let fs = require('fs');
 
-let username = process.argv[2];
-let password = process.argv[3];
+let username = process.argv[3];
+let password = process.argv[4];
 let fullName = 'IOT_CONNECTOR'; // no spaces
-let cert = fs.readFileSync(process.argv[5],'utf8');
+let cert = fs.readFileSync(process.argv[6],'utf8');
 
 function makeid() {
     var id = "";
@@ -29,7 +35,7 @@ conn.login(username, password, function (err, userInfo) {
     }
 
     let metadata = [{
-        contactEmail: process.argv[4],
+        contactEmail: process.argv[5],
         description: 'Integration between Salesforce IoT and other clouds',
         fullName: fullName, 
         label: 'IOT Connector',
@@ -59,7 +65,7 @@ conn.login(username, password, function (err, userInfo) {
                 return console.error(err);
             }
 
-            console.log('consumer key: ' + metadata.oauthConfig.consumerKey);
+            console.log(metadata.oauthConfig.consumerKey);
         });
     });
 });

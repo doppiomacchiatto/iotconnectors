@@ -3,7 +3,7 @@ var content = fs.readFileSync("./config.json");
 var config = JSON.parse(content);
 
 //as command line
-if(process.argv) {
+if(process.argv && process.argv.length > 2) {
     if(process.argv[2] == "sandbox") {
         if(process.argv[3] == "true") {config.sandbox = true;}
         if(process.argv[3] == "false") {config.sandbox = false;}
@@ -40,6 +40,12 @@ if(process.argv) {
         config.api_username = orgdisplay_lines[15].split("         ")[1];
     }
 
+    if(process.argv[2] == "showpwdfile") {
+        var orgdisplay = fs.readFileSync(process.argv[3],'utf8');
+        var orgdisplay_lines = orgdisplay.split("\n");
+        console.log(orgdisplay_lines[9].split("      ")[1]);
+    }
+
     if(process.argv[2] == "readkeyfile") {
         var privatekey = fs.readFileSync(process.argv[3],'utf8');
         privatekey = privatekey.replace("-----BEGIN PRIVATE KEY-----\n","");
@@ -50,18 +56,22 @@ if(process.argv) {
 
     if(process.argv[2] == "readconsumerfile") {
         var consumer_key = fs.readFileSync(process.argv[3],'utf8');
-        config.consumer_key = consumer_key;
+        config.consumer_key = consumer_key.replace("\n","");
+    }
+
+    if(process.argv[2] == "output") {
+        if(process.argv[3] == "api_username") { console.log(config.api_username); }
+        else {console.log(config);}
     }
 
     fs.writeFileSync('config.json', JSON.stringify(config), 'utf8');
 
 //    console.log(config);
-} else {
-
+} 
 //as module
 module.exports = config;
 
-}
+
 
 
 
