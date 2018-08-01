@@ -108,7 +108,7 @@ The first step is to create the IoT Hub.  This is the Device hub via which all r
 
 ![Image](./images/image_7.png)
 
-You will be presented with the configurator.   Give your IoT hub a sensible name such as **Salesforce-IoTHub (**all hub names need to be unique across Azure).  Then select the pricing.  Make sure you select the **Free tier**- the default is set to a chargeable “**S1 - Standard**” pricing tier so make sure you select the free option (if available).
+You will be presented with the configurator.   Give your IoT hub a sensible name such as **Salesforce-IoTHub** (all hub names need to be unique across Azure).  Then select the pricing.  Make sure you select the **Free tier**- the default is set to a chargeable “**S1 - Standard**” pricing tier so make sure you select the free option (if available).
 
 Ensure that you minimise your configurations to avoid additional charges.  Select **2** in the device-to-cloud section and make sure you select your subscription that you selected on sign-up.
 
@@ -182,7 +182,7 @@ This will launch the combined file system and command line view where we can con
 
 Within the Kudu console create a package.json file.  This is just package configuration file that describes the Node application that we will create to send Platform Events.  Within the console window type the following.
 
-`D:\home>``touch packa`g`e.json`
+`D:\home>touch package.json`
 
 This will create an empty file that will be used by the Node Package Manager when we configure the Node application in the next few steps.  You should now see the package.json file listed in the file system.
 
@@ -214,11 +214,11 @@ This will install all the packages that were defined in the package.json file th
 
 ## Create a New function within your Serverless Environment
 
-We have now configured our virtual server for Node.js. We can now create our function and link it to our **IoT Hub **messages that will be received from the device**.  **Go back to the **SalesforceAzure1** Function App and create a new function.** **
+We have now configured our virtual server for Node.js. We can now create our function and link it to our **IoT Hub** messages that will be received from the device. Go back to the **SalesforceAzure1** Function App and create a new function.
 
 ![Image](./images/image_22.png)
 
-This user Interface is slightly confusing.  Do not pick the defaults and instead pick the **create your own custom functions.  **This will launch a list of quickstart templates.  Pick the **Event Hub Trigger** - Javascript template.
+This user Interface is slightly confusing.  Do not pick the defaults and instead pick the **create your own custom functions**. This will launch a list of quickstart templates.  Pick the **Event Hub Trigger** - Javascript template.
 
 ![Image](./images/image_23.png)
 
