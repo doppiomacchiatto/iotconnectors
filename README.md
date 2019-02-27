@@ -1,6 +1,15 @@
 # IoT Connector
 
-This repo holds sample code for creating Platform Events via API that can be hosted on various cloud platforms (AWS, Azure, etc.).
+This repo holds sample code for creating Platform Events via API that can be hosted on various cloud platforms (AWS, GCP, Azure, etc.).
+
+All document with detailed instructions on configuration, deployment and execution are available in this [Wiki](../../wiki).
+
+The repository contains two submodules for two unmanaged applications that can be deployed into an Salesforce org (using SFDX 2nd generation package deployment):
+
+1 - An Amazon [AWS IoT Connector Application](./AWSIoTConnectorApp)
+2 - A Google [GCP IoT Connector Application](./GCPIotConnectorApp)
+
+For user documentations on these two applications see the [Wiki](../../wiki) pages for the [AWSIoTConnector](../../wiki/AWSIoTConnector) and [GCPIoTConnector](../../wiki/GCPIoTConnector) respectively.
 
 ## Quick Start
 
@@ -27,9 +36,9 @@ Follow the instructions in the script which will require answering some prompts.
 
 See the following for setting up in:
 
-* [AWS IoT Hub](./AWSConnector) 
-* [AWS Lambda](./AWSPlatformEvents) 
-* [Azure IoT](./AzureConnector) 
+* [AWS IoT Hub](https://github.com/developerforce/iotconnectors/wiki/AWSPlatformEvents-WebFlow) 
+* [AWS Lambda](https://github.com/developerforce/iotconnectors/wiki/AWSPlatformEvents-JWT) 
+* [Azure IoT](https://github.com/developerforce/iotconnectors/wiki/AzurePlatformEvents) 
 
 
 ## The manual route
@@ -37,12 +46,12 @@ See the following for setting up in:
 If you want to create the working parts yourself, following these guides:
 
 * [IoT Quick Start](https://trailhead.salesforce.com/en/projects/quick-start-iot-explorer) This Trailhead Quick Start walks through creating the platform event, context and orchestration.
-* [Connected App and Certificate](./AWSPlatformEvents) 
+* [Connected App and Certificate](https://github.com/developerforce/iotconnectors/wiki/AWSPlatformEvents-JWT) 
 
 Then go into the node directory and update config.json with the correct information.  You would then continue with the guide to setting up in the cloud of your choice:
 
-* [AWS IoT Hub](./AWSConnector) 
-* [AWS Lambda](./AWSPlatformEvents) 
-* [Azure IoT](./AzureConnector) 
+* [AWS IoT Hub](https://github.com/developerforce/iotconnectors/wiki/AWSIoTConnector) 
+* [AWS Lambda](https://github.com/developerforce/iotconnectors/wiki/AWSPlatformEvents-JWT) 
+* [Azure IoT](https://github.com/developerforce/iotconnectors/wiki/AzurePlatformEvents) 
 
 
