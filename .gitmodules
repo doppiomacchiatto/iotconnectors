@@ -1,0 +1,6 @@
+[submodule "AWSIoTConnectorApp"]
+	path = AWSIoTConnectorApp
+	url = git@github.com:hkache/AWS-iotconnector.git
+[submodule "GCPIoTConnectorApp"]
+	path = GCPIoTConnectorApp
+	url = git@github.com:hkache/GCP-iotconnector.git
