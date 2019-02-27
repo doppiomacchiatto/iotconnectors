@@ -6,9 +6,9 @@ All document with detailed instructions on configuration, deployment and executi
 
 The repository contains two submodules for two unmanaged applications that can be deployed into an Salesforce org (using SFDX 2nd generation package deployment):
 
-1 - An Amazon [AWS IoT Connector Application](https://github.com/hkache/AWS-iotconnector)
+1. An Amazon [AWS IoT Connector Application](https://github.com/hkache/AWS-iotconnector)
 
-2 - A Google [GCP IoT Connector Application](https://github.com/hkache/GCP-iotconnector)
+2. A Google [GCP IoT Connector Application](https://github.com/hkache/GCP-iotconnector)
 
 For user documentations on these two applications see the [Wiki](../../wiki) pages for the [AWSIoTConnector](../../wiki/AWSIoTConnector) and [GCPIoTConnector](../../wiki/GCPIoTConnector) respectively.
 
