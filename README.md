@@ -51,7 +51,7 @@ If you want to create the working parts yourself, following these guides:
 
 Then go into the node directory and update config.json with the correct information.  You would then continue with the guide to setting up in the cloud of your choice:
 
-* [AWS IoT Hub](https://github.com/developerforce/iotconnectors/wiki/AWSIoTConnector) 
+* [AWS IoT Hub](https://github.com/developerforce/iotconnectors/wiki/AWSPlatformEvents-WebFlow) 
 * [AWS Lambda](https://github.com/developerforce/iotconnectors/wiki/AWSPlatformEvents-JWT) 
 * [Azure IoT](https://github.com/developerforce/iotconnectors/wiki/AzurePlatformEvents) 
 
