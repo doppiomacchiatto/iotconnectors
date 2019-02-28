@@ -2,7 +2,7 @@
 
 This repo holds sample code for creating Platform Events via API that can be hosted on various cloud platforms (AWS, GCP, Azure, etc.).
 
-All documentation with detailed instructions on configuration, deployment and execution are available in this [Wiki](../../wiki).
+All user documentation with detailed instructions on configuration, deployment and execution are available in this [Wiki](../../wiki).
 
 The repository contains two submodules for two unmanaged applications that can be deployed into an Salesforce org (using SFDX 2nd generation package deployment):
 
